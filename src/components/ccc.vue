@@ -1,7 +1,7 @@
 <template>
   <div class="about">
     <div class="container">
-      <h1>Chào mừng đến với Quán Ăn Ẩm Thực của Chúng Tôi!</h1>
+      <h2>Chào mừng đến với Quán Ăn Ẩm Thực của Chúng Tôi!</h2>
       <img src="/goithieu1.jpg" alt="Ảnh banner" class="intro-image" />
 
       <p>
@@ -56,74 +56,79 @@
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
 .about {
-  padding: 40px 0;
-  background-color: #f8f8f8;
+  font-family: 'Inter', sans-serif;
+  padding: 60px 0;
+  background: linear-gradient(to bottom, #fefefe, #f3f3f3);
 }
 
 .container {
-  max-width: 960px;
+  max-width: 1024px;
   margin: 0 auto;
-  padding: 0 20px;
-}
-
-h1 {
-  color: #ff5722;
-  text-align: center;
-  margin-bottom: 20px;
+  padding: 0 24px;
 }
 
 h2 {
-  color: #ff5722;
-  margin-top: 25px;
-  margin-bottom: 15px;
+  color: #d35400;
+  font-size: 26px;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  font-weight: 600;
 }
 
 p {
-  line-height: 1.6;
-  margin-bottom: 15px;
+  line-height: 1.75;
+  margin-bottom: 18px;
   color: #333;
+  font-size: 16px;
 }
 
 ul {
   list-style: disc;
-  padding-left: 25px;
-  margin-bottom: 20px;
+  padding-left: 28px;
+  margin-bottom: 24px;
 }
 
 li {
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   color: #555;
+  font-size: 15.5px;
 }
 
 .signature {
   font-style: italic;
   text-align: right;
-  color: #777;
-  margin-top: 30px;
+  color: #888;
+  margin-top: 40px;
+  font-size: 15px;
 }
 
 /* Ảnh banner */
 .intro-image {
   width: 100%;
-  max-height: 400px;
+  max-height: 360px;
   object-fit: cover;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  margin: 20px 0;
+  border-radius: 16px;
+  margin: 28px 0;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
-/* Cặp ảnh bên trái và mô tả bên phải */
+/* Layout ảnh + mô tả */
 .image-text-pair {
   display: flex;
-  gap: 30px;
-  margin-top: 40px;
-  align-items: flex-start;
   flex-wrap: wrap;
+  gap: 36px;
+  margin-top: 50px;
+}
+
+.image-text-pair .left,
+.image-text-pair .right {
+  flex: 1 1 300px;
 }
 
 .image-text-pair .left {
-  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -131,26 +136,58 @@ li {
 
 .image-text-pair .left img {
   width: 100%;
-  max-width: 100%;
-  border-radius: 10px;
+  border-radius: 12px;
   object-fit: cover;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.07);
+  transition: transform 0.3s;
 }
 
-.image-text-pair .right {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+.image-text-pair .left img:hover {
+  transform: scale(1.02);
+}
+
+.text-block {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease;
 }
 
 .text-block h3 {
-  margin-bottom: 5px;
-  color: #ff5722;
+  margin-bottom: 8px;
+  font-size: 18px;
+  color: #e67e22;
+  font-weight: 600;
 }
 
 .text-block p {
-  margin: 0;
   color: #444;
+  font-size: 15.5px;
+  line-height: 1.6;
+}
+
+.text-block:hover {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .image-text-pair {
+    flex-direction: column;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  p, li {
+    font-size: 15px;
+  }
 }
 </style>
+

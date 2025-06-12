@@ -68,23 +68,110 @@ const proceedToCheckout = () => {
 
 <style scoped>
 .cart-item-image {
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   object-fit: cover;
-  border-radius: 5px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.cart-item-image:hover {
+  transform: scale(1.05);
+}
+
+.table {
+  border-collapse: separate;
+  border-spacing: 0 8px;
 }
 
 .table th, .table td {
   vertical-align: middle;
+  background-color: #fff;
+  border: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.table thead th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #dee2e6;
 }
 
 .btn-outline-secondary {
-    border-color: #6c757d;
-    color: #6c757d;
+  border-color: #6c757d;
+  color: #6c757d;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
 }
 
 .btn-outline-secondary:hover {
-    background-color: #6c757d;
-    color: white;
+  background-color: #6c757d;
+  color: white;
+  transform: scale(1.05);
 }
+
+.btn-danger {
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-danger:hover {
+  transform: scale(1.05);
+}
+
+.bg-light {
+  border: 1px solid #ddd;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+h4.text-danger {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+button.btn-lg {
+  padding: 12px 28px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: transform 0.2s ease;
+}
+
+button.btn-lg:hover {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .table thead {
+    display: none;
+  }
+
+  .table, .table tbody, .table tr, .table td {
+    display: block;
+    width: 100%;
+  }
+
+  .table tr {
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+  }
+
+  .table td {
+    text-align: right;
+    padding-left: 50%;
+    position: relative;
+  }
+
+  .table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 15px;
+    width: 45%;
+    font-weight: bold;
+    text-align: left;
+  }
+}
+
 </style>

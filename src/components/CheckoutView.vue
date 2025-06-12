@@ -108,7 +108,8 @@ const customerInfo = ref({
 // Biến cho toast notification
 const showMessage = ref(false);
 const messageText = ref('');
-let timeoutId: number | undefined;
+let timeoutId: ReturnType<typeof setTimeout> | undefined;
+
 
 const submitOrder = async () => { // Đặt hàm là async
   if (cartStore.cartItemCount === 0) {

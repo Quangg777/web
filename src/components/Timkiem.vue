@@ -102,6 +102,117 @@ text-decoration: none;
     font-size: 14px;
     transition: background-color 0.3s ease;
 }
-  /* @import '../assets/foodStyle.css'; */
+.search-result {
+  padding: 40px 20px;
+  background-color: #fef9f5;
+  min-height: 100vh;
+}
+
+.search-result h2 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #d84315;
+  margin-bottom: 30px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.food-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 28px;
+  max-width: 1300px;
+  margin: auto;
+  padding: 0 10px;
+}
+
+.food-card {
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+  padding: 24px 18px;
+}
+
+.food-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+.food-card img {
+  width: 100%;
+  height: 160px;
+  object-fit:contain;
+  border-radius: 14px;
+  margin-bottom: 16px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.food-card:hover img {
+  transform: scale(1.05);
+}
+
+.food-card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ff5722;
+  margin-bottom: 8px;
+}
+
+.food-card p {
+  font-size: 14px;
+  color: #444;
+  margin-bottom: 6px;
+}
+
+.food-card strong {
+  color: #e53935;
+  font-size: 16px;
+}
+
+.buy-button {
+  margin-top: 14px;
+  padding: 10px 22px;
+  font-size: 14px;
+  font-weight: 600;
+  background-color: #ff5722;
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.buy-button:hover {
+  background-color: #e64a19;
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .search-result h2 {
+    font-size: 22px;
+  }
+
+  .food-card {
+    padding: 18px 14px;
+  }
+
+  .food-card h3,
+  .food-card p {
+    font-size: 14px;
+  }
+
+  .buy-button {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+}
 
 </style>

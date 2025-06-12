@@ -34,7 +34,8 @@ const form = ref({
 const isSubmitting = ref(false);
 const submitMessage = ref('');
 const submitSuccess = ref(false);
-let timeoutId: number | undefined; // Để lưu ID của setTimeout
+let timeoutId: ReturnType<typeof setTimeout> | undefined;
+ // Để lưu ID của setTimeout
 
 const submitForm = async () => {
   isSubmitting.value = true;
@@ -79,51 +80,77 @@ const submitForm = async () => {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
 .contact-container {
-  max-width: 600px;
-  margin: 40px auto;
-  background-color: #fff;
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  font-family: 'Inter', sans-serif;
+  max-width: 620px;
+  margin: 60px auto;
+  background-color: #fffdfc;
+  padding: 36px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   color: #333;
 }
 
 .title {
   text-align: center;
-  margin-bottom: 20px;
-  color: #ff5722;
+  margin-bottom: 30px;
+  color: #e65100;
+  font-size: 34px;
+  font-weight: 600;
 }
 
 .contact-info {
-  margin-bottom: 30px;
-  font-size: 15px;
-  line-height: 1.6;
+  margin-bottom: 32px;
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: #555;
+}
+
+.contact-info p {
+  margin-bottom: 10px;
 }
 
 .contact-form input,
 .contact-form textarea {
   width: 100%;
-  padding: 12px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 14px;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: #ff7043;
+  box-shadow: 0 0 0 3px rgba(255, 112, 67, 0.2);
+}
+
+.contact-form textarea {
+  resize: vertical;
+  min-height: 120px;
 }
 
 .contact-form button {
   background-color: #ff5722;
   color: white;
-  padding: 10px 20px;
+  padding: 12px 24px;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 16px;
+  font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.2s ease;
+  width: 100%;
 }
 
 .contact-form button:hover:not(:disabled) {
   background-color: #e64a19;
+  transform: translateY(-1px);
 }
 
 .contact-form button:disabled {
@@ -131,38 +158,59 @@ const submitForm = async () => {
   cursor: not-allowed;
 }
 
-/* CSS cho thông báo dạng "Toast"
-  Lấy cảm hứng từ style bạn đã có, điều chỉnh cho phù hợp.
-*/
+/* Toast notification */
 .toast-notification {
-  position: fixed; /* Ghim thông báo vào viewport */
-  top: 20px; /* Cách đỉnh màn hình 20px */
-  left: 50%; /* Canh giữa theo chiều ngang */
-  transform: translateX(-50%) translateY(-100%); /* Ban đầu ẩn trên màn hình */
-  padding: 15px 30px;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-100%);
+  background-color: #444;
+  color: white;
+  padding: 16px 28px;
   border-radius: 10px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
-  z-index: 1000; /* Đảm bảo hiển thị trên tất cả các element khác */
+  font-size: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
   opacity: 0;
   visibility: hidden;
-  transition: transform 0.4s ease-out, opacity 0.4s ease-out, visibility 0.4s ease-out;
-  font-size: 1.3em;
-  min-width: 300px;
+  transition: transform 0.4s ease, opacity 0.4s ease, visibility 0.4s ease;
+  z-index: 9999;
   text-align: center;
-  color: white; /* Mặc định chữ trắng */
+  min-width: 320px;
 }
 
 .toast-notification.success {
-  background-color: rgba(40, 167, 69, 0.9); /* Xanh lá cây */
+  background-color: rgba(56, 168, 64, 0.95);
 }
 
 .toast-notification.danger {
-  background-color: rgba(220, 53, 69, 0.9); /* Đỏ */
+  background-color: rgba(220, 53, 69, 0.95);
 }
 
 .toast-notification.show {
   opacity: 1;
   visibility: visible;
-  transform: translateX(-50%) translateY(0); /* Di chuyển xuống vị trí hiển thị */
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .contact-container {
+    padding: 24px;
+    margin: 20px;
+  }
+
+  .title {
+    font-size: 26px;
+  }
+
+  .contact-form button {
+    font-size: 15px;
+  }
+
+  .toast-notification {
+    min-width: 260px;
+    font-size: 15px;
+    padding: 12px 20px;
+  }
 }
 </style>

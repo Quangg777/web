@@ -128,4 +128,5 @@ export const foodItems = [
         image: '/sukicha.jpg',
         category: 'Tráng Miệng', // ĐÃ SỬA
       },
+      
   ]

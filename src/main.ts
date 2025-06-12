@@ -7,6 +7,9 @@ import App from './App.vue';
 import router from './router';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';
+import { createRouter, createWebHistory } from 'vue-router'
+import * as lucide from 'lucide-vue-next'
+
 
 const app = createApp(App);
 const pinia = createPinia(); // <-- Khởi tạo Pinia

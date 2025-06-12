@@ -44,7 +44,8 @@ const cartStore = useCartStore();
 
 const showMessage = ref(false);
 const messageText = ref('');
-let timeoutId: number | undefined;
+let timeoutId: ReturnType<typeof setTimeout> | undefined;
+
 
 
 const allFoods = computed(() => foodItems);
@@ -93,28 +94,35 @@ const hienThiThemMon = () => {
 
 <style scoped>
 
+
+* {
+  font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
+}
+
 .home-view-container {
-  padding-bottom: 50px; 
-  padding-top: 20px;
+  padding: 40px 0 60px;
+  background-color: #fffdf9;
 }
 
 .section-title {
-  font-size: 2.2em;
-  font-weight: bold;
+  font-size: 30px;
+  font-weight: 600;
   color: #ff5722;
-  margin-bottom: 30px;
+  text-align: center;
+  margin-bottom: 40px;
   position: relative;
 }
 
 .section-title::after {
   content: '';
   position: absolute;
-  left: 50%;
-  bottom: -10px;
-  transform: translateX(-50%);
-  width: 80px;
+  width: 70px;
   height: 4px;
-  background-color: #ff5722;
+  background: #ff5722;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
   border-radius: 2px;
 }
 
@@ -126,101 +134,96 @@ const hienThiThemMon = () => {
 
 .food-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 25px;
-  justify-content: center;
-  transition: gap 0.3s ease;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 30px;
 }
 
 .food-card {
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
-  padding: 15px;
-  background: #ffffff;
-  text-align: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .food-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 }
 
 .food-card-link {
   text-decoration: none;
   color: inherit;
+  padding: 15px;
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
-  margin-bottom: 10px;
+  justify-content: flex-start;
 }
 
 .food-card img {
   width: 100%;
-  max-height: 160px;
+  height: 160px;
   object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 12px;
+  display: block;
 }
 
 .food-card h3 {
-  font-size: 1.3em;
-  margin: 10px 0 8px;
-  color: #ff5722;
-  font-weight: 600;
+  margin: 16px 0 8px;
+  font-size: 1.20rem;
+  color: #d32f2f;
+  font-weight: 550;
 }
 
 .food-card p {
   color: #666;
-  font-size: 0.95em;
-  flex-grow: 1;
-  margin-bottom: 10px;
+  font-size: 0.90rem;
+  margin-bottom: 6px;
 }
 
 .food-card strong {
-  display: block;
-  margin-bottom: 15px;
   color: #d32f2f;
-  font-size: 1.1em;
+  font-size: 1.1rem;
+  display: block;
+  margin-top: 10px;
   font-weight: bold;
 }
 
-.buy-button, .add-button {
-  background-color: #ff5722;
-  color: white;
+.add-button {
+  margin: 0 16px 16px;
+  background-color:peru;
+  color: #fff;
+  padding: 10px;
+  font-size: 1rem;
+  font-weight: 500;
   border: none;
-  padding: 10px 20px;
   border-radius: 25px;
   cursor: pointer;
-  font-size: 1em;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  width: 100%;
 }
 
-.buy-button:hover, .add-button:hover {
-  background-color: #e64a19;
-  transform: scale(1.02);
+.add-button:hover {
+  background-color: peru;
+  transform: scale(1.03);
 }
 
-/* Nút "Xem thêm sản phẩm" */
+/* Load more button */
 .load-more-section {
-    margin-top: 50px;
-    margin-bottom: 50px;
+  margin-top: 50px;
+  text-align: center;
 }
 
 .load-more-button {
   background-color: #007bff;
   color: white;
   border: none;
-  padding: 12px 25px;
-  border-radius: 25px;
-  cursor: pointer;
-  font-size: 1.1em;
+  padding: 14px 30px;
+  font-size: 1.1rem;
   font-weight: bold;
+  border-radius: 30px;
+  cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
@@ -230,9 +233,10 @@ const hienThiThemMon = () => {
 }
 
 .all-foods-loaded {
-  font-size: 1.1em;
+  font-size: 1.1rem;
   color: #555;
   font-style: italic;
+  margin-top: 20px;
 }
 
 /* Toast Notification */
@@ -241,17 +245,17 @@ const hienThiThemMon = () => {
   top: 20px;
   left: 50%;
   transform: translateX(-50%) translateY(-100%);
-  background-color: rgba(40, 167, 69, 0.9);
+  background-color: #28a745;
   color: white;
-  padding: 15px 30px;
+  padding: 15px 28px;
   border-radius: 10px;
+  font-size: 1.1rem;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
-  z-index: 1000;
   opacity: 0;
   visibility: hidden;
   transition: transform 0.4s ease-out, opacity 0.4s ease-out, visibility 0.4s ease-out;
-  font-size: 1.3em;
-  min-width: 300px;
+  z-index: 1000;
+  min-width: 280px;
   text-align: center;
 }
 
@@ -260,4 +264,21 @@ const hienThiThemMon = () => {
   visibility: visible;
   transform: translateX(-50%) translateY(0);
 }
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 24px;
+  }
+
+  .food-card h3 {
+    font-size: 1.1rem;
+  }
+
+  .load-more-button {
+    font-size: 1rem;
+    padding: 12px 20px;
+  }
+}
 </style>
+

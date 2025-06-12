@@ -24,7 +24,8 @@ const cartStore = useCartStore();
 
 const showMessage = ref(false);
 const messageText = ref('');
-let timeoutId: number | undefined;
+let timeoutId: ReturnType<typeof setTimeout> | undefined;
+
 
 const mainDishes = [
   {
@@ -117,5 +118,80 @@ const handleAddToCart = (item: typeof mainDishes[0]) => {
   opacity: 1;
   visibility: visible;
   transform: translateX(-50%) translateY(0);
+}
+.food-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 30px;
+}
+
+.food-card {
+  background-color: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.food-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.food-card-link {
+  text-decoration: none;
+  color: inherit;
+  padding: 16px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.food-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+
+.food-card h3 {
+  margin: 16px 0 8px;
+  font-size: 1.25rem;
+  color: #ff5722;
+  font-weight: 600;
+}
+
+.food-card p {
+  color: #666;
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+}
+
+.food-card strong {
+  color: #d32f2f;
+  font-size: 1.1rem;
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+.buy-button {
+  margin: 0 16px 16px;
+  background-color: #ff5722;
+  color: #fff;
+  padding: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.buy-button:hover {
+  background-color: #e64a19;
+  transform: scale(1.03);
 }
 </style>

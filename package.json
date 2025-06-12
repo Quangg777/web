@@ -14,6 +14,7 @@
     "@supabase/supabase-js": "^2.49.9",
     "bootstrap": "^5.3.5",
     "bootstrap-vue-next": "^0.28.6",
+    "lucide-vue-next": "^0.514.0",
     "pinia": "^3.0.2",
     "uuid": "^11.1.0",
     "vue": "^3.5.13",

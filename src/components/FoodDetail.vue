@@ -5,7 +5,7 @@
         <img :src="foodItem.image" :alt="foodItem.name" class="food-detail-image img-fluid rounded shadow-sm">
       </div>
       <div class="col-md-6 d-flex flex-column justify-content-center">
-        <h1 class="display-4 text-primary">{{ foodItem.name }}</h1>
+        <h1 class="ten">{{ foodItem.name }}</h1>
         <p class="lead text-muted">{{ foodItem.description }}</p>
         <p class="h3 text-danger mb-4">{{ foodItem.price.toLocaleString('vi-VN') }}₫</p>
 
@@ -46,7 +46,8 @@ const quantity = ref(1);
 // Biến cho toast notification
 const showMessage = ref(false);
 const messageText = ref('');
-let timeoutId: number | undefined;
+let timeoutId: ReturnType<typeof setTimeout> | undefined;
+
 
 // Sử dụng ref để giữ đối tượng foodItem được tìm thấy
 const foodItem = ref<typeof foodItems[0] | undefined>(undefined);
@@ -90,77 +91,102 @@ const handleAddToCart = (item: typeof foodItems[0]) => {
 
 <style scoped>
 .food-detail-container {
-  max-width: 900px;
-  background-color: #fff;
-  border-radius: 15px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  padding: 30px;
-  margin-top: 50px;
-  position: relative; /* Dùng cho toast */
-  min-height: 500px;
+  max-width: 960px;
+  background: #fffefc;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  padding: 40px 30px;
+  margin-top: 60px;
+  position: relative;
+  min-height: 520px;
+  font-family: 'Segoe UI', sans-serif;
 }
 
+/* Hình ảnh món ăn */
 .food-detail-image {
-  max-height: 400px;
-  object-fit: contain;
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+  border-radius: 12px;
   border: 1px solid #eee;
-  padding: 10px;
+  padding: 8px;
+  background: #fdfdfd;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
 }
 
+/* Tên món */
 h1 {
-  font-weight: 700;
-  color: #ff5722;
+  font-weight: 800;
+  color: #e65100;
+  margin-bottom: 16px;
 }
 
+/* Mô tả */
 p.lead {
-  font-size: 1.1em;
-  color: #555;
-}
-
-p.h3 {
-  font-weight: bold;
-}
-
-.btn-outline-secondary {
-  border-color: #ccc;
+  font-size: 1.15em;
   color: #666;
-  width: 40px;
-  height: 40px;
+  margin-bottom: 20px;
+}
+
+/* Giá */
+p.h3 {
+  font-weight: 700;
+  color: #c62828;
+}
+
+/* Nút tăng giảm số lượng */
+.btn-outline-secondary {
+  border-color: #ddd;
+  color: #444;
+  width: 44px;
+  height: 44px;
+  font-size: 1.2em;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.2em;
+  transition: all 0.3s ease;
+  border-radius: 8px;
 }
 
+.btn-outline-secondary:hover {
+  background-color: #f0f0f0;
+  border-color: #bbb;
+  color: #000;
+}
+
+/* Nút thêm vào giỏ hàng */
 .btn-success {
-  background-color: #28a745;
-  border-color: #28a745;
+  background-color:skyblue;
+  border: none;
+  padding: 14px 28px;
+  font-size: 1.1em;
   font-weight: 600;
-  padding: 12px 25px;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(67, 160, 71, 0.3);
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .btn-success:hover {
-  background-color: #218838;
-  transform: translateY(-2px);
+  background-color: violet;
+  transform: scale(1.02);
 }
 
-/* Toast Notification (giống các component khác) */
+/* Toast thông báo */
 .toast-notification {
   position: fixed;
   top: 20px;
   left: 50%;
   transform: translateX(-50%) translateY(-100%);
-  background-color: rgba(40, 167, 69, 0.9);
+  background: linear-gradient(to right, #66bb6a, #43a047);
   color: white;
   padding: 15px 30px;
-  border-radius: 10px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
   z-index: 1000;
   opacity: 0;
   visibility: hidden;
-  transition: transform 0.4s ease-out, opacity 0.4s ease-out, visibility 0.4s ease-out;
-  font-size: 1.3em;
+  transition: transform 0.4s ease, opacity 0.4s ease, visibility 0.4s ease;
+  font-size: 1.2em;
   min-width: 300px;
   text-align: center;
 }
@@ -169,5 +195,39 @@ p.h3 {
   opacity: 1;
   visibility: visible;
   transform: translateX(-50%) translateY(0);
+}
+
+.ten{
+  font-size:35px;
+  color:turquoise;
+  padding: 5px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .food-detail-container {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .btn-success {
+    width: 100%;
+    font-size: 1em;
+    padding: 12px 0;
+  }
+
+  .btn-outline-secondary {
+    width: 36px;
+    height: 36px;
+    font-size: 1em;
+  }
+
+  .toast-notification {
+    font-size: 1em;
+    min-width: 90%;
+  }
 }
 </style>

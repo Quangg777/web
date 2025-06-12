@@ -24,7 +24,8 @@ const cartStore = useCartStore();
 
 const showMessage = ref(false);
 const messageText = ref('');
-let timeoutId: number | undefined;
+let timeoutId: ReturnType<typeof setTimeout> | undefined;
+
 
 const desserts = [
   {
@@ -91,6 +92,7 @@ const handleAddToCart = (item: typeof desserts[0]) => {
 
 <style scoped>
 @import '../assets/foodStyle.css';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
 /* ... CSS của bạn ... */
 
@@ -128,74 +130,79 @@ const handleAddToCart = (item: typeof desserts[0]) => {
   min-height: 500px;
 }
 
+.food-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 30px;
+}
+
 .food-card {
-  background-color: #ffffff;
+  background-color: #fff;
   border-radius: 16px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-  padding: 16px;
-  text-align: center;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .food-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 }
 
-.food-link {
+.food-card-link {
   text-decoration: none;
   color: inherit;
+  padding: 16px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.food-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
   display: block;
 }
 
-.food-image {
-  width: 100%;
-  height: 140px;
-  object-fit: cover;
-  border-radius: 12px;
-  margin-bottom: 12px;
+.food-card h3 {
+  margin: 16px 0 8px;
+  font-size: 1.25rem;
+  color: #ff5722;
+  font-weight: 600;
 }
 
-h3 {
-  font-size: 18px;
-  font-weight: 600;
-  color: #ff5722;
+.food-card p {
+  color: #666;
+  font-size: 0.95rem;
   margin-bottom: 6px;
 }
 
-p {
-  font-size: 0.9em;
-  color: #666;
-  margin-bottom: 10px;
-  flex-grow: 1;
-}
-
-.price {
+.food-card strong {
   color: #d32f2f;
+  font-size: 1.1rem;
+  display: block;
+  margin-top: 10px;
   font-weight: bold;
-  margin: 8px 0;
-  font-size: 16px;
-  margin-top: auto;
 }
-
 .buy-button {
+  margin: 0 16px 16px;
   background-color: #ff5722;
-  color: white;
-  border: none;
-  padding: 10px 18px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
+  color: #fff;
+  padding: 10px;
+  font-size: 1rem;
   font-weight: 500;
-  width: 100%;
-  margin-top: 15px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .buy-button:hover {
   background-color: #e64a19;
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 </style>

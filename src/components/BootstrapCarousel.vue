@@ -1,5 +1,5 @@
 <template>
-    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000">
       <!-- Indicators -->
       <div class="carousel-indicators">
         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></button>
@@ -61,76 +61,145 @@ onMounted(() => {
   </script>
   
   <style scoped>
+/* === Featured Section === */
 .featured-section {
-  padding: 40px 20px;
-  background-color: #fff3e0;
+  padding: 60px 20px;
+  background-color: #fef9f5;
   text-align: center;
 }
+
+.section-title {
+  font-size: 28px;
+  margin-bottom: 40px;
+  color: #d84315;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* === Product Grid === */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 32px;
+  max-width: 1300px;
+  margin: auto;
+  padding: 0 10px;
+}
+
 a.product-card {
   text-decoration: none;
   color: inherit;
-  display: block;
-}
-.section-title {
-  font-size: 24px;
-  margin-bottom: 20px;
-  color: #ff5722;
-  font-weight: bold;
-}
-
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 20px;
-  justify-content: center;
-  text-decoration: none;
 }
 
 .product-card {
-  background: white;
-  padding: 16px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
+  background-color: #fff;
+  padding: 22px;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .product-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
 }
 
 .product-image {
   width: 100%;
-  height: 140px;
+  height: 160px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  transition: transform 0.3s ease-in-out;
 }
-.product-image:hover{
-          transform: translateY(-5px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+.product-card:hover .product-image {
+  transform: scale(1.05);
 }
 
 .product-name {
-  display: block;
-  text-decoration: none;
   font-size: 16px;
-  margin: 10px 0 5px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 6px;
 }
 
 .product-price {
-  text-decoration: none;
-  color: #e91e63;
-  font-weight: bold;
+  font-size: 16px;
+  color: #e53935;
+  font-weight: 600;
 }
-.buy-button{
-    margin-top: 12px;
-    padding: 8px 16px;
-    background-color: #ff5722;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
+
+/* Optional Buy Button */
+.buy-button {
+  margin-top: 14px;
+  padding: 10px 24px;
+  font-size: 15px;
+  background-color: #ff5722;
+  color: white;
+  border: none;
+  border-radius: 24px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.buy-button:hover {
+  background-color: #e64a19;
+  transform: translateY(-2px);
+}
+
+/* === Carousel Styling === */
+.carousel-item img {
+  max-width: 100%;
+  height:80px;
+  object-fit:contain;
+  object-position: center;
+  display: flex;
+}
+
+.carousel-indicators [data-bs-target] {
+  width: 12px;
+  height: 12px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  margin: 0 6px;
+  transition: all 0.3s ease;
+}
+
+.carousel-indicators .active {
+  background-color: #ff5722;
+  transform: scale(1.3);
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.6));
+}
+
+/* === Responsive Adjustments === */
+@media (max-width: 768px) {
+  .carousel-item img {
+    height: 200px;
+  }
+
+  .section-title {
+    font-size: 22px;
+  }
+
+  .product-card {
+    padding: 16px;
+  }
+
+  .product-name,
+  .product-price {
     font-size: 14px;
-    transition: background-color 0.3s ease;
+  }
 }
+
   </style>
   

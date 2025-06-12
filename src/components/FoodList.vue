@@ -26,7 +26,8 @@ const cartStore = useCartStore();
 // Khai báo các biến để quản lý thông báo toast
 const showMessage = ref(false); // Biến kiểm soát hiển thị/ẩn thông báo
 const messageText = ref(''); // Nội dung của thông báo
-let timeoutId: number | undefined; // Dùng để lưu trữ ID của setTimeout để có thể xóa nó
+let timeoutId: ReturnType<typeof setTimeout> | undefined;
+ // Dùng để lưu trữ ID của setTimeout để có thể xóa nó
 
 // Dữ liệu danh sách món ăn
 const foodItems = [
@@ -179,39 +180,42 @@ const handleAddToCart = (item: typeof foodItems[0]) => {
 </script>
 
 <style scoped>
-/* Container cho toàn bộ danh sách món ăn */
+/* ============================== */
+/* Layout container */
 .food-list-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 24px;
   padding: 40px;
-  position: relative; /* Quan trọng: để toast-notification không bị tràn ra ngoài nếu container có overflow */
-  min-height: 500px; /* Đảm bảo có đủ không gian để toast hiển thị */
+  position: relative;
+  background-color: #f9f9f9;
+  min-height: 500px;
 }
 
-/* Card của từng món ăn */
+/* ============================== */
+/* Food card style */
 .food-card {
-  background-color: #ffffff;
+  background-color: #fff;
   border-radius: 16px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
   padding: 16px;
   text-align: center;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
 .food-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
 }
 
-/* Link của hình ảnh món ăn */
+/* ============================== */
+/* Image and link styles */
 .food-link {
+  display: block;
   text-decoration: none;
   color: inherit;
-  display: block;
 }
 
 .food-image {
@@ -219,46 +223,155 @@ const handleAddToCart = (item: typeof foodItems[0]) => {
   height: 140px;
   object-fit: cover;
   border-radius: 12px;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
-/* Tiêu đề món ăn */
-h3 { /* Sử dụng h3 trực tiếp nếu bạn không có class food-title */
-  font-size: 18px;
+/* ============================== */
+/* Text styles */
+h3 {
+  font-size: 1rem;
   font-weight: 600;
-  color: #ff5722;
-  margin-bottom: 6px;
+  color: #333;
+  margin-bottom: 8px;
 }
 
-/* Mô tả món ăn */
 p {
-  font-size: 0.9em;
+  font-size: 0.92em;
   color: #666;
   margin-bottom: 10px;
-  flex-grow: 1; /* Cho phép mô tả mở rộng để chiếm không gian */
+  flex-grow: 1;
 }
 
-/* Giá món ăn */
 .price {
-  color: #d32f2f;
+  font-size: 1rem;
   font-weight: bold;
-  margin: 8px 0;
-  font-size: 16px;
-  margin-top: auto; /* Đẩy giá xuống cuối nếu có nhiều mô tả */
+  color: #e53935;
+  margin-top: auto;
 }
 
-/* Nút "Mua ngay" */
+/* ============================== */
+/* Button styles */
 .buy-button {
-  background-color: #ff5722;
+  margin-top: 16px;
+  padding: 10px 0;
+  width: 100%;
+  background: linear-gradient(135deg, #ff6f00, #ff5722);
   color: white;
-  border: none;
-  padding: 10px 18px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
   font-weight: 500;
-  width: 100%; /* Nút đầy đủ chiều rộng */
-  margin-top: 15px; /* Khoảng cách từ giá */
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.buy-button:hover {
+  background: linear-gradient(135deg, #e65100, #e64a19);
+  transform: scale(1.05);
+}
+
+/* ============================== */
+/* Toast notification styles */
+.toast-notification {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-100%);
+  background-color: rgba(56, 142, 60, 0.95);
+  color: #fff;
+  padding: 16px 32px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  font-size: 1.1rem;
+  min-width: 280px;
+  text-align: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: transform 0.4s ease-out, opacity 0.4s ease-out, visibility 0.4s ease-out;
+}
+
+.toast-notification.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+.food-list-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  padding: 2rem;
+  background-color: var(--color-background-soft);
+}
+
+/* Card Container */
+.food-card {
+  width: 240px;
+  border-radius: 16px;
+  overflow: hidden;
+  background-color: var(--color-background);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem 1rem;
+  border: 1px solid var(--color-border);
+}
+
+.food-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+  border-color: var(--color-border-hover);
+}
+
+/* Image Styling */
+.food-image {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+
+/* Text Elements */
+.food-card h3 {
+  font-size: 1.125rem; /* 18px */
+  margin: 0 0 0.5rem;
+  color: var(--color-heading);
+  font-weight: 600;
+  text-align: center;
+}
+
+.food-card p {
+  font-size: 0.875rem; /* 14px */
+  color: var(--color-text);
+  margin: 4px 0;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* Price */
+.food-card .price {
+  font-size: 1rem; /* 16px */
+  color: #ff4081;
+  font-weight: 700;
+  margin-top: 0.75rem;
+}
+
+/* Buy Button */
+.buy-button {
+  margin-top: 1rem;
+  padding: 10px 20px;
+  background-color: #ff5722;
+  color: #fff;
+  border: none;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .buy-button:hover {
@@ -266,29 +379,16 @@ p {
   transform: scale(1.05);
 }
 
-/* CSS cho thông báo tùy chỉnh (Toast Notification) */
-.toast-notification {
-  position: fixed; /* Quan trọng để toast luôn hiển thị trên cùng và không bị ảnh hưởng bởi cuộn */
-  top: 20px; /* <--- Thay đổi từ 'bottom' sang 'top' và đặt khoảng cách từ trên xuống */
-  left: 50%; /* Canh giữa theo chiều ngang */
-  transform: translateX(-50%) translateY(-100%); /* <--- Ban đầu ẩn *trên* màn hình và dịch sang trái 50% độ rộng của nó */
-  background-color: rgba(40, 167, 69, 0.9); /* Màu xanh lá cây mờ */
-  color: white; /* Chữ màu trắng */
-  padding: 15px 30px; /* <--- Tăng padding để làm to hơn */
-  border-radius: 10px; /* <--- Tăng border-radius */
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3); /* <--- Đổ bóng đậm hơn */
-  z-index: 1000; /* Đảm bảo thông báo hiển thị trên tất cả các element khác */
-  opacity: 0; /* Ban đầu ẩn */
-  visibility: hidden; /* Ban đầu không thể tương tác */
-  transition: transform 0.4s ease-out, opacity 0.4s ease-out, visibility 0.4s ease-out; /* <--- Tăng thời gian transition */
-  font-size: 1.3em; /* <--- Tăng kích thước chữ */
-  min-width: 300px; /* <--- Tăng chiều rộng tối thiểu */
-  text-align: center;
+/* Responsive Layout */
+@media (max-width: 768px) {
+  .food-card {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .food-list-container {
+    padding: 1.5rem;
+  }
 }
 
-.toast-notification.show {
-  opacity: 1; /* Khi có class 'show', hiện thông báo */
-  visibility: visible; /* Khi có class 'show', hiển thị thông báo */
-  transform: translateX(-50%) translateY(0); /* <--- Khi có class 'show', di chuyển xuống vị trí hiển thị */
-}
 </style>

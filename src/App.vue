@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col min-h-screen">
+  <div class="flex">
     <Header />
 
     <!-- Chỉ hiện Carousel nếu đang ở trang chủ -->
@@ -23,3 +23,5 @@ import BootstrapCarousel from './components/BootstrapCarousel.vue'
 const route = useRoute()
 const isHomePage = computed(() => route.path === '/')
 </script>
+
+
